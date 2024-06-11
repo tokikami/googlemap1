@@ -1,0 +1,39 @@
+## googlemap
+
+```{r}
+d <- read.csv(file = 'https://stats.dip.jp/01_ds/data/campus_location_TIU.csv')
+
+library(DT)
+datatable(d)
+```
+
+```{r}
+ikebukuro<-data.frame(name='東京国際大学池袋キャンパス',
+address='〒170-0013東京都豊島区東池袋4丁目42-31',
+lat=35.72851396039461, lng=139.7216620239378)
+sakado<-data.frame(name='東京国際大学坂戸キャンパス',
+address='〒350-0245埼玉県坂戸市四日市場81-1',
+lat=35.93388639827336, lng=139.35368274899088)
+
+local_school <-data.frame(name='旧田子町立上郷小学校',
+address='〒039-0317 青森県三戸郡田子町山口道前２１',
+lat=40.29290409036932, lng=141.07575301639673)
+d <- rbind(d,ikebukuro,sakado,local_school)
+```
+
+
+```{r}
+library(leaflet)
+
+leaflet() %>%
+addTiles() %>% 
+addMarkers(lng = d$lng, lat = d$lat,
+           popup = paste0(d$name, '<br>', d$address)) %>% 
+addMiniMap(positio = 'topright') %>%
+addScaleBar(position="bottomleft")
+```
+
+```{r}
+
+```
+
